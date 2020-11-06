@@ -2,7 +2,8 @@
 
 This package provides a way to invoke User Access Control (UAC) in Windows from Python.
 
-This allows a Python process to elevate itself to Administrator level rights using the UAC prompt.
+This allows a Python process to re-spawn a new process with Administrator level rights using
+the UAC prompt. Note that the original process is not elevated; a new process is created.
 
 ## Quick Usage
 
@@ -17,11 +18,13 @@ This will trigger the UAC (User Access Control) prompt if necessary.
 
 ### Example Usage
 
+This shows a typical usage pattern:
+
 ```
 import pyuac
 
 def main():
-    print("This part needs to be run as an admin.")
+    print("Do stuff here that requires being run as an admin.")
 
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():
@@ -66,6 +69,13 @@ Replace `venv` above with the path to your Python installation.
 
 If that throws an error, the PyWin32 installation was not successful. Try removing it from pip
 and reinstalling it under the Admin command prompt, and then run the postinstall script again.
+
+If all else fails, and you are using a system-installed Python (not a virtualenv) then you
+can try downloading the PyWin32 .exe installer.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
 
 ## Credits
 

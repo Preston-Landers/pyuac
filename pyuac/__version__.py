@@ -1,0 +1,8 @@
+__title__ = 'pyuac'
+__description__ = 'Python library for Windows User Access Control (UAC)'
+__url__ = 'https://github.com/Preston-Landers/pyuac'
+__version__ = '0.0.1'
+__author__ = 'Preston Landers'
+__author_email__ = 'planders@utexas.edu'
+__license__ = 'MIT'
+__copyright__ = 'Copyright 2020 Preston Landers'
