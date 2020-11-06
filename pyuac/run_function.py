@@ -3,7 +3,7 @@
 # vim: fileencoding=utf-8 tabstop=4 expandtab shiftwidth=4
 
 """
-See run_function_as_admin_with_output
+See run_function_as_admin
 
 TODO: this is unfinished and untested
 """
@@ -17,7 +17,7 @@ from tee import StderrTee, StdoutTee
 from pyuac import isUserAdmin, runAsAdmin
 
 
-def run_function_as_admin_with_output(
+def run_function_as_admin(
     run_function, run_args=None, run_kwargs=None,
     return_output=False, stdout_handle=None, stderr_handle=None,
     scan_for_error=True,
@@ -44,12 +44,13 @@ def run_function_as_admin_with_output(
     @param stdout_handle: file handle to write the process stdout output, defaults to sys.stdout
     @param stderr_handle: file handle to write the process stderr output, defaults to sys.stderr
     @param scan_for_error: look at the last line only for the string 'error' and
-        turn that into a RuntimeError if found.
+        turn that into a RuntimeError if found. ONLY scans the LAST line of stderr and stdout!
     @param stdout_temp_fn: the name of the temporary log file to use (will be deleted)
         for standard output stream of the sub-process. If not given, a default is generated
     @param stderr_temp_fn: the name of the temporary log file to use (will be deleted)
         for standard error stream of the sub-process. If not given, a default is generated
-    @return: None unless return_output is set
+    @return: None unless return_output is set.
+        If return_output is True, the output is a 2-tuple of (stdout, stderr) strings.
     """
 
     # Should we add another function parameter to run the in the "not-admin" case?
@@ -80,21 +81,32 @@ def run_function_as_admin_with_output(
                 traceback.print_exc(file=stderr_handle)
     else:
         runAsAdmin(wait=True)
-        # TODO: add stderr handling
-        if os.path.exists(stdout_temp_fn):
-            with open(stdout_temp_fn, "r") as log_fh:
+
+    rv = []
+    for filename, handle in (
+        (stdout_temp_fn, stdout_handle),
+        (stderr_temp_fn, stderr_handle),
+    ):
+        if os.path.exists(filename):
+            with open(filename, "r") as log_fh:
                 console_output = log_fh.read()
-            os.remove(stdout_temp_fn)
-            if os.path.exists(stdout_temp_fn):
-                print("Warning, can't delete " + stdout_temp_fn)
+            os.remove(filename)
+            if os.path.exists(filename):
+                print("Warning, can't delete " + filename)
 
             if scan_for_error:
-                last_line = str.splitlines(console_output.strip())[-1].strip()
-                if last_line.lower().find("error") != -1:
-                    raise RuntimeError(last_line)
+                lines = str.splitlines(console_output.strip())
+                if lines:
+                    last_line = lines[-1].strip()
+                    if last_line.lower().find("error") != -1:
+                        raise RuntimeError(last_line)
 
             if return_output:
-                return console_output
+                # return console_output
+                rv.append(console_output)
 
-            stdout_handle.write(console_output)
-            stdout_handle.flush()
+            handle.write(console_output)
+            handle.flush()
+
+    if return_output and rv:
+        return rv

@@ -21,7 +21,7 @@ This is meant to be used something like this::
 
 See also this utility function which runs a function as admin and captures the stdout/stderr:
 
-run_function_as_admin_with_output(my_main_function)
+run_function_as_admin(my_main_function)
 
 """
 
