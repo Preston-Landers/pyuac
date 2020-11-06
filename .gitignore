@@ -5,6 +5,7 @@ dist
 __pycache__
 env
 venv
+venv27
 .eggs
 .tox
 .pytest_cache

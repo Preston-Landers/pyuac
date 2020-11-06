@@ -33,14 +33,10 @@ log = getLogger('pyuac')
 
 
 def isUserAdmin():
-    """@return: True if the current user is an 'Admin' whatever that
-    means (root on Unix), otherwise False.
+    """Check if the current OS user is an Administrator or root.
 
-    Warning: The inner function fails unless you have Windows XP SP2 or
-    higher. The failure causes a traceback to be printed and this
-    function to return False.
+    :return: True if the current user is an 'Administrator', otherwise False.
     """
-
     if os.name == 'nt':
         import win32security
 
@@ -59,18 +55,20 @@ def isUserAdmin():
 
 
 def runAsAdmin(cmdLine=None, wait=True):
-    """Attempt to relaunch the current script as an admin using the same
-    command line parameters.  Pass cmdLine in to override and set a new
-    command.  It must be a list of [command, arg1, arg2...] format.
+    """
+    Attempt to relaunch the current script as an admin using the same command line parameters.
 
-    Set wait to False to avoid waiting for the sub-process to finish. You
-    will not be able to fetch the exit code of the process if wait is
-    False.
+    WARNING: this function only works on Windows. Future support for Posix might be possible.
+    Calling this from other than Windows will raise a RuntimeError.
 
-    Returns the sub-process return code, unless wait is False in which
-    case it returns None.
+    :param cmdLine: set to override the command line of the program being launched as admin.
+    Otherwise it defaults to the current process command line! It must be a list in
+    [command, arg1, arg2...] format.
 
-    @WARNING: this function only works on Windows.
+    :param wait: Set to False to avoid waiting for the sub-process to finish. You will not
+    be able to fetch the exit code of the process if wait is False.
+
+    :returns: the sub-process return code, unless wait is False, in which case it returns None.
     """
 
     if os.name != 'nt':
@@ -84,10 +82,9 @@ def runAsAdmin(cmdLine=None, wait=True):
     # noinspection PyUnresolvedReferences
     from win32com.shell import shellcon
 
-    python_exe = sys.executable
-
     if cmdLine is None:
-        cmdLine = [python_exe] + sys.argv
+        cmdLine = [sys.executable] + sys.argv
+        log.debug("Defaulting to runAsAdmin command line: %r", cmdLine)
     elif type(cmdLine) not in (tuple, list):
         raise ValueError("cmdLine is not a sequence.")
     cmd = '"%s"' % (cmdLine[0],)
