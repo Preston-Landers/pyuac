@@ -1,6 +1,10 @@
 *.pyc
 build
+pyuac.egg-info
 dist
 __pycache__
 env
 venv
+.eggs
+.tox
+.pytest_cache
