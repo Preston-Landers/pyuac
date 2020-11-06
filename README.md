@@ -20,7 +20,7 @@ This will trigger the UAC (User Access Control) prompt if necessary.
 
 This shows a typical usage pattern:
 
-```
+```python
 import pyuac
 
 def main():
@@ -29,8 +29,9 @@ def main():
 if __name__ == "__main__":
     if not pyuac.isUserAdmin():
         print("Re-launching as admin!")
-        return pyuac.runAsAdmin()
-    main()
+        pyuac.runAsAdmin()
+    else:
+        main()
 ```
 
 ## Requirements
