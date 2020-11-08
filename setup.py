@@ -20,6 +20,7 @@ if "win" in sys.platform:
     except ImportError:
         # Only require pywin32 if not already installed
         # version 223 introduced ability to install from pip
+        # TODO: not working as automatic dependency?
         install_requires.append("pywin32>=224")
 
 setup(

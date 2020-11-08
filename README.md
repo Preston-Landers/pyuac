@@ -120,17 +120,17 @@ and [tee](https://pypi.org/project/tee/)
 
 The PyWin32 package is required by this library (pyuac).
 
-If you get ImportErrors when you run this on the win32* modules (win32event or win32com)
-usually that means PyWin32 is either not installed at all, or else the installation is incomplete;
-see below.
+If you get ImportError or ModuleNotFoundError when you run this, usually that means
+PyWin32 is either not installed at all, or else the installation is incomplete; see below.
 
 PyWin32 can be installed via pip, but sometimes there are problems completing the installation
-scripts which install the COM object support required by pyuac. 
+scripts which install the COM object support required by pyuac.
 
 Typically, this can be fixed doing the following:
  
 * Launching a command prompt as Administrator
 * Activate your Python virtual environment, if needed.
+* `pip install pywin32`
 * `python venv\Scripts\pywin32_postinstall.py -install`
 
 Replace `venv` above with the path to your Python installation. 
