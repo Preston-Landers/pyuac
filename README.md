@@ -10,6 +10,8 @@ as Administrator on Windows. There is no ability to execute only parts of a prog
 as Administrator - the entire script is re-launched with the same command line. You can
 also override the command line used for the admin process.
 
+See also [pyuac on the Python Package Index (PyPI)](https://pypi.org/project/pyuac)
+
 ## Usage and examples
 
 There are two basic ways to use this library. Perhaps the simplest way is to decorate your 
