@@ -12,7 +12,7 @@ about = {}
 with open(os.path.join(here, 'pyuac', '__version__.py'), 'r', encoding='utf-8') as fh:
     exec(fh.read(), about)
 
-install_requires = ['tee']
+install_requires = ['tee', 'decorator']
 
 if "win" in sys.platform:
     try:
@@ -45,5 +45,11 @@ setup(
         "Programming Language :: Python :: 2.7",
         "License :: OSI Approved :: MIT License",
         "Operating System :: Microsoft :: Windows",
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Environment :: Win32 (MS Windows)",
+        "Intended Audience :: Developers",
+        # "Topic :: System :: Shells",
+        # "Topic :: Utilities",
     ],
 )
