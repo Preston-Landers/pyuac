@@ -64,8 +64,8 @@ if __name__ == "__main__":
     if not rv:
         print("I must have already been Admin!")
     else:
-        admin_stdout, admin_str, *_ = rv
-        if "Do stuff" in admin_stdout:
+        admin_stdout_str, admin_stderr_str, *_ = rv
+        if "Do stuff" in admin_stdout_str:
             print("It worked.")
 ```
 
@@ -103,7 +103,8 @@ if __name__ == "__main__":
 ## Requirements
 
 * This package only supports Windows at the moment. The isUserAdmin function will work under
-  Linux / Posix, but the runAsAdmin functionality is currently Windows only.
+  Linux / Posix, but the runAsAdmin functionality is currently Windows only. Using the
+  `@main_requires_admin` decorator will be a no-op on non-Windows platforms.
   
 * This requires Python 2.7, or Python 3.3 or higher.
 
