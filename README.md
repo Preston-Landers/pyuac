@@ -1,4 +1,4 @@
-# PyUAC - Python User Access Control
+# PyUAC - Python User Access Control for Windows
 
 This package provides a way to invoke User Access Control (UAC) in Windows from Python.
 
@@ -22,7 +22,9 @@ See also [tests/example_usage.py](tests/example_usage.py)
 ### Decorator
 
 The decorator is an easy way to ensure your script's main() function will respawn itself
-as Admin if necessary.
+as Admin if necessary. Note that the decorator has no effect unless on the Windows platform.
+It does NOT currently relaunch the script with 'sudo' on Linux or other POSIX platforms.
+On non-Windows platforms, it's a no-op.
 
 #### Decorator usage example
 

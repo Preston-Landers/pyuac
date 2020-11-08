@@ -1,8 +1,9 @@
 # Changes
 
-## 0.0.1
+## 0.0.2
 
- - Initial package release based on a cleaned up version of my Gist originally published here:
+ - Initial public release of a package based on a cleaned up version of my Gist that
+was originally published here:
  
     https://gist.github.com/Preston-Landers/267391562bc96959eb41
 

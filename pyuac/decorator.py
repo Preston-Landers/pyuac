@@ -64,6 +64,9 @@ def main_requires_admin(
         If return_output is True, the output of the decorated function is a 2-tuple
         of (stdout, stderr) strings.
     """
+    if os.name != 'nt':
+        log.debug("Invoked main_requires_admin on a non-Windows platform; doing nothing!")
+        return run_function(*args, **kwargs)
 
     # Should we add another function parameter to run the in the "not-admin" case?
 
