@@ -1,5 +1,9 @@
 # Changes
 
+## 0.0.3
+
+- Fix Python 2.7 compatibility.
+
 ## 0.0.2
 
  - Initial public release of a package based on a cleaned up version of my Gist that

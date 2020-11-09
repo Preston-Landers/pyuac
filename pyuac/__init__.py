@@ -42,7 +42,7 @@ run_function_as_admin(my_main_function)
 """
 
 from pyuac.admin import isUserAdmin, runAsAdmin
-from pyuac.decorator import main_requires_admin
+from pyuac.main_decorator import main_requires_admin
 
 __all__ = [
     'isUserAdmin',

@@ -48,7 +48,8 @@ kwarg2: biz
         sample_function_body, return_output=True, cmdLine=cmdLine)
     rv = decorated_sample(*example1_args, **example1_kwargs)
     assert rv, "Already ran as admin?"
-    actual_stdout, actual_stderr, *_ = rv
+    assert len(rv) == 2, "Unexpected return value"
+    actual_stdout, actual_stderr = rv
     assert actual_stdout == expected_output
     assert actual_stderr == ""
     return

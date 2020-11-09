@@ -7,7 +7,7 @@ script command line parameters. Invoke this like:
 > python example_usage.py 3 4 --sum --string1 "Here's \"quotes\" in a string!"
 """
 
-from pyuac.decorator import main_requires_admin
+from pyuac.main_decorator import main_requires_admin
 
 
 @main_requires_admin
