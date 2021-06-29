@@ -67,6 +67,12 @@ def runAsAdmin(cmdLine=None, wait=True):
 
     if not cmdLine:
         cmdLine = [sys.executable] + sys.argv
+        if not os.path.exists(sys.argv[0]):
+            # When running an entry point, argv[0] is wrong
+            for ext in ('-script.py', '-script.pyw'):
+                if os.path.exists(sys.argv[0] + ext):
+                    cmdLine[1] = sys.argv[0] + ext
+                    break
         log.debug("Defaulting to runAsAdmin command line: %r", cmdLine)
     elif type(cmdLine) not in (tuple, list):
         raise ValueError("cmdLine is not a sequence.")
