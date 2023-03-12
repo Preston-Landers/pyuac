@@ -36,7 +36,7 @@ def isUserAdmin():
         return os.getuid() == 0
 
 
-def runAsAdmin(cmdLine=None, wait=True):
+def runAsAdmin(cmdLine=None, wait=True, showCmd=True):
     """
     Attempt to relaunch the current script as an admin using the same command line parameters.
 
@@ -77,7 +77,11 @@ def runAsAdmin(cmdLine=None, wait=True):
     elif type(cmdLine) not in (tuple, list):
         raise ValueError("cmdLine is not a sequence.")
 
-    showCmd = win32con.SW_SHOWNORMAL
+    if showCmd:
+        showCmdArg = win32con.SW_SHOWNORMAL
+    else:
+        showCmdArg = win32con.SW_HIDE
+    
     lpVerb = 'runas'  # causes UAC elevation prompt.
 
     cmd = cmdLine[0]
@@ -85,7 +89,7 @@ def runAsAdmin(cmdLine=None, wait=True):
 
     log.info("Running command %r - %r", cmd, params)
     procInfo = ShellExecuteEx(
-        nShow=showCmd,
+        nShow=showCmdArg,
         fMask=shellcon.SEE_MASK_NOCLOSEPROCESS,
         lpVerb=lpVerb,
         lpFile=cmd,
